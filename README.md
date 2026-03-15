@@ -51,3 +51,24 @@ http://localhost:8000
 ## Author
 
 Computer Science Engineering Student
+
+## Author
+
+Computer Science Engineering Student
+
+## Screenshots
+
+### Login
+![Login](images/login.png)
+
+### Register
+![Register](images/register.png)
+
+### Admin Dashboard
+![Dashboard](images/dashboard.png)
+
+### Movie Details
+![Movie Details](images/movie-details.png)
+
+### Edit Movie
+![Edit Movie](images/edit-movie.png)
