@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Movie{% endblock %}
+
+{% block body %}
+<div class="form-container">
+    <h1>Add Movie</h1>
+
+    {{ form_start(form, {'attr': {'class': 'movie-form'}}) }}
+        {{ form_widget(form) }}
+        <button class="btn-primary">Save</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

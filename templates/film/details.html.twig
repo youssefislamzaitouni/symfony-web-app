@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="details-page-dark">
+    <div class="details-card-dark">
+        <div class="details-poster">
+            <img src="{{ asset('uploads/' ~ film.poster) }}"
+                 onerror="this.src='{{ asset('uploads/default.jpg') }}'"
+                 alt="{{ film.title }}">
+        </div>
+
+        <div class="details-info-dark">
+            <h1>{{ film.title }}</h1>
+            <p class="genre">{{ film.genre }}</p>
+            <p class="rating">⭐ {{ film.rating }}/100</p>
+
+            <p class="plot">{{ film.description }}</p>
+
+            <p class="more-info">
+                <strong>Director:</strong> {{ film.director }}
+            </p>
+
+            {% if app.user %}
+                {% if film.user and film.user.id == app.user.id %}
+                    <a href="{{ path('film_remove', {id: film.id}) }}" class="add-btn-dar">
+                        Remove
+                    </a>
+                {% else %}
+                    <a href="{{ path('film_save', {id: film.id}) }}" class="add-btn-dark">
+                        Add to My List
+                    </a>
+                {% endif %}
+            {% else %}
+                <p style="opacity: 0.7;">Login to add this film</p>
+            {% endif %}
+
+            <a href="{{ path('home') }}" class="back-btn-dark">Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="home-section">
+    <h1>Featured Films</h1>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div style="text-align:center; margin-bottom: 20px;">
+            <a class="home-btn" href="{{ path('film_add') }}">Add Film</a>
+        </div>
+    {% endif %}
+
+    <div class="search-container">
+        <input
+            type="text"
+            id="movieSearch"
+            class="search-bar"
+            placeholder="Search a movie..."
+            onkeyup="filterMovies()"
+        >
+    </div>
+
+    <div class="movie-grid" id="movieGrid">
+        {% for film in films %}
+            <div class="movie-card-wrapper">
+                <a href="{{ path('movie_show', {id: film.id}) }}" class="movie-card">
+                    <img src="{{ asset('uploads/' ~ film.poster) }}"
+                         onerror="this.src='{{ asset('uploads/default.jpg') }}'">
+
+                    <h3>{{ film.title }}</h3>
+                    <p>{{ film.genre }}</p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div style="text-align:center; margin-top: 40px;">
+        <a class="home-btn" href="{{ path('film_list') }}">View Library</a>
+    </div>
+</div>
+
+<script>
+function filterMovies() {
+    const input = document.getElementById("movieSearch").value.toLowerCase();
+    const cards = document.querySelectorAll(".movie-card-wrapper");
+
+    cards.forEach(card => {
+        const title = card.querySelector("h3").textContent.toLowerCase();
+        card.style.display = title.includes(input) ? "block" : "none";
+    });
+}
+</script>
+{% endblock %}

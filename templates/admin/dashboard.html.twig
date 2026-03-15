@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block body %}
+<h1 class="page-title">Admin Dashboard</h1>
+
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('admin_movie_add') }}" class="add-btn">➕ Add Movie</a>
+{% endif %}
+
+<div class="admin-grid">
+    {% for film in films %}
+        <div class="movie-card">
+            {% if film.poster %}
+                <img src="{{ asset('uploads/' ~ film.poster) }}" class="poster">
+            {% else %}
+                <div class="no-poster">No image</div>
+            {% endif %}
+
+            <h3>{{ film.title }}</h3>
+            <p>{{ film.director }}</p>
+            <span class="rating">{{ film.rating }}/100</span>
+
+            <div class="actions">
+                <a href="{{ path('admin_movie_edit', {id: film.id}) }}">✏ Edit</a>
+                <a href="{{ path('admin_film_delete', {id: film.id}) }}" onclick="return confirm('Are you sure?')">🗑 Delete</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

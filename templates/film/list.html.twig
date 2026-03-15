@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Film Library</h1>
+
+<ul class="film-list">
+{% for film in films %}
+    <li class="film-item">
+        <div class="film-left">
+            <img src="{{ film.poster ? asset('uploads/' ~ film.poster) : asset('uploads/default.jpg') }}"
+                 onerror="this.src='{{ asset('uploads/default.jpg') }}'">
+
+            <div class="film-info">
+                <strong>{{ film.title }}</strong>
+                <span>{{ film.genre }}</span>
+            </div>
+        </div>
+
+        <div class="film-actions">
+            <form method="post" action="{{ path('film_remove', {id: film.id}) }}">
+                <button class="delete-btn" type="submit">🗑</button>
+            </form>
+        </div>
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

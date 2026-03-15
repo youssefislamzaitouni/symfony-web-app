@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Film</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-left">
+        <strong>Nova Film</strong>
+
+        <div class="nav-links">
+            <a href="{{ path('home') }}">Home</a>
+            <a href="{{ path('film_list') }}">Films</a>
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('admin_dashboard') }}">Dashboard</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="nav-right">
+        {% if app.user %}
+            <div class="dropdown">
+                <button class="dropbtn">
+                    {{ app.user.firstName }}
+                    {% if is_granted('ROLE_ADMIN') %} (Admin){% endif %}
+                </button>
+                <div class="dropdown-content">
+                    <a href="{{ path('app_profile') }}">Profile</a>
+                    <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="nav-links">
+                <a href="{{ path('app_login') }}">Login</a>
+                <a href="{{ path('app_register') }}">Register</a>
+            </div>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="container">
+    {% block body %}{% endblock %}
+</div>
+
+<footer class="footer">
+    Nova Film © 2026
+</footer>
+
+</body>
+</html>
